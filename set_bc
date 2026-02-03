@@ -1,0 +1,15 @@
+#!/bin/bash
+
+for i in {0..4}
+do
+    BIN_NAME="bin${i}_nd"
+    NEW_FILE="0.orig/$BIN_NAME"
+    
+    # copy template
+    cp 0.orig/bin.template "$NEW_FILE"
+    
+    # search for line starting with object -> set the rest of the line to the bin name. 
+    sed -i "s/object.*/object      $BIN_NAME;/g" "$NEW_FILE"
+    
+    echo "Created $NEW_FILE with correct header."
+done

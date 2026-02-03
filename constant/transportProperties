@@ -16,7 +16,7 @@ FoamFile
 
 phases          (water vapour);
 
-phaseChangeTwoPhaseMixture SchnerrSauer;
+// phaseChangeTwoPhaseMixture SchnerrSauer; // Not needed only one model
 
 pSat            2300;   // Saturation pressure
 
@@ -36,29 +36,16 @@ vapour
     rho             0.02308;
 }
 
-KunzCoeffs
+cavitationCoeffs // no need to specify model -> only one model. 
 {
-    UInf            U20.0;
-    tInf            0.005; // L = 0.1 m
-    Cc              C1000;
-    Cv              C1000;
-}
-
-MerkleCoeffs
-{
-    UInf            20.0;
-    tInf            0.005;  // L = 0.1 m
-    Cc              80;
-    Cv              1e-03;
-}
-
-SchnerrSauerCoeffs
-{
-    n               1.6e+13;
+    pSat            2300;  
+    n0              1.6e+13;
     dNuc            2.0e-06;
     Cc              1;
     Cv              1;
+    binRadii        (1e-6 2e-6 4e-6 8e-6 16e-6);
 }
+
 
 
 // ************************************************************************* //

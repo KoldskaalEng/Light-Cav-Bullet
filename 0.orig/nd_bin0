@@ -9,46 +9,45 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    object      fvSchemes;
+    class       volScalarField;
+    object      nd_bin0;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-ddtSchemes
-{
-    default             Euler;
-}
+dimensions      [0 -3 0 0 0];
 
-interpolationSchemes
-{
-    default             linear;
-}
+internalField   uniform 0;
 
-divSchemes
+boundaryField
 {
-    default             Gauss linear;
-    div(rhoPhi,U)       Gauss linearUpwind grad(U);
-    div(phi,omega)      Gauss linearUpwind grad(omega);
-    div(phi,k)          Gauss linearUpwind grad(k);
-    div(phi,alpha)      Gauss vanLeer;
-    div(phirb,alpha)    Gauss linear;
-    // div(phi,"nd_bin*")  Gauss linear; // kunne ogås lave et default scheme 
-    div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
-}
+    inlet
+    {
+        type            fixedValue;
+        value           $internalField;
+    }
 
-gradSchemes
-{
-    default             Gauss linear;
-}
+    outlet
+    {
+        type            inletOutlet;
+        inletValue      $internalField;
+    }
 
-laplacianSchemes
-{
-    default             Gauss linear limited corrected 0.5;
-}
+    bullet
+    {
+        type            fixedValue;
+        value           uniform 1000;
+    }
 
-snGradSchemes
-{
-    default             limited corrected 0.5;
+    walls
+    {
+        type            symmetry;
+    }
+
+    "procBoundary.*"
+    {
+        type            processor;
+        value             $internalField; 
+    }
 }
 
 

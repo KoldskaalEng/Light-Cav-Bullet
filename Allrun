@@ -10,6 +10,9 @@ cp -f \
     "$FOAM_TUTORIALS"/resources/geometry/bullet.stl.gz \
     constant/triSurface/
 
+# Create the bin bcs from template 
+./set_bc
+
 # Generate the base block mesh
 runApplication blockMesh
 
@@ -23,5 +26,6 @@ runApplication potentialFoam -pName p_rgh -writephi
 
 # Run the solver
 runApplication $(getApplication)
+touch case.foam
 
 #------------------------------------------------------------------------------
