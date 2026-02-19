@@ -1,6 +1,18 @@
 #!/bin/bash
 
-for i in {0..4}
+# Create nuke-bin 
+BIN_NAME="nucBin_nd"
+NEW_FILE="0.orig/$BIN_NAME"
+NUKE_VAL="1E+10"
+# copy template
+cp 0.orig/bin.template "$NEW_FILE"
+
+# search for line starting with object -> set the rest of the line to the bin name. 
+sed -i "s/object.*/object      $BIN_NAME;/g" "$NEW_FILE"
+sed -i "s/\(internalField[[:space:]]\+uniform[[:space:]]\+\)[^;]\+/\1$NUKE_VAL/" "$NEW_FILE"
+echo "Created $NEW_FILE with correct header."
+
+for i in {1..5}
 do
     BIN_NAME="bin${i}_nd"
     NEW_FILE="0.orig/$BIN_NAME"

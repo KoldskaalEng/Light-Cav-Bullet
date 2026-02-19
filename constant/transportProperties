@@ -38,12 +38,12 @@ vapour
 
 cavitationCoeffs // no need to specify model -> only one model. 
 {
-    pSat            2300;  
-    n0              1.6e+13;
-    dNuc            2.0e-06;
-    Cc              1;
-    Cv              1;
-    binRadii        (1e-6 2e-6 4e-6 8e-6 16e-6);
+    pSat            2300;
+    rMin            1e-6;
+    rMax            1e-4;
+    lambda          2;
+    nBins           5;
+    rNuc            0;
 }
 
 
